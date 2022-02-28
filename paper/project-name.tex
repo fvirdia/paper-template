@@ -6,14 +6,10 @@
 \def\isfullversion{0}
 \def\buildexternal{1}
 
-%% There is a package that you should include first: nag. Why first? Because it warns you about
-%% obsolete commands and package. https://daniel-j-h.github.io/post/latex-a-modern-approach/
-\usepackage[l2tabu,orthodox]{nag}
-
 %% MISC PACKAGES
 
 \usepackage{microtype}
-\usepackage[bookmarksdepth=2,backref]{hyperref}
+\usepackage[bookmarksdepth=2,colorlinks=true,citecolor=NavyBlue,linkcolor=ForestGreen]{hyperref}
 \usepackage{booktabs}  %% tables
 \usepackage{comment}
 \usepackage{enumitem}
@@ -25,10 +21,33 @@
 
 %% TODO NOTES
 
-\usepackage{xcolor}
-\definecolor{oxygenorange}{HTML}{FFDD00}
-\usepackage[color=oxygenorange]{todonotes}
-\newcommand{\malb}[2][inline]{\todo[#1]{\textbf{malb:} #2}\xspace}
+\usepackage[dvipsnames]{xcolor}
+% using todonotes
+%\usepackage{todonotes}
+%\newcommand{\fernando}[2][inline]{\todo[#1,color=PineGreen!40]{\textbf{fernando:} #2}\xspace}
+
+% using marginpars
+\newcommand{\fernando}[2][inline]{\marginpar{\colorbox{PineGreen!40}{\textbf{fernando:}} #2}\xspace}
+
+% using textcolor
+%\newcommand{\fernando}[2][inline]{\colorbox{PineGreen!40}{\textbf{fernando:}} \textcolor{PineGreen}{#2}\xspace}
+
+% disable present comments
+%\renewcommand{\fernando}[2][inline]{}
+
+
+
+
+
+
+% locally wider margins
+\newcommand\Wider[2][3em]{%
+	\makebox[\linewidth][c]{%
+		\begin{minipage}{\dimexpr\textwidth+#1\relax}
+			\raggedright#2
+		\end{minipage}%
+	}%
+}
 
 %% ANONYMOUS SUBMISSIONS
 
@@ -134,7 +153,21 @@
 %% OPENING
 
 \title{A well-written paper about interesting stuff}
-\anonymous{}{\author{Martin R. Albrecht}}
+\anonymous{%
+	\author{}
+	\institute{}
+}{%
+	\author{
+		Fernando Virdia\\
+	}
+	\institute{
+		Applied Cryptography Group,\\
+			ETH Zurich,\\
+			Z\"urich, Switzerland\\
+			\{fernando.virdia\}@inf.ethz.ch
+	}
+}
+
 
 \begin{document}
 
@@ -146,7 +179,7 @@
 
 \section{Introduction}\label{sec:introduction}
 
- \malb{An example note for some example text.}
+ \fernando{An example note for some example text.}
 
 %  \begin{figure}[htbp]
 %    \caption{something}\label{fig:something}
@@ -178,8 +211,22 @@
 % \end{lstlisting}
 
 \clearpage
-\bibliographystyle{alpha}
-\bibliography{abbrev3,crypto_crossref,local}
+\bibliographystyle{abbrv}
+\bibliography{cryptobib/abbrev3,cryptobib/crypto,local}
+%\bibliography{local}
+
+\clearpage
+\thispagestyle{empty}
+~
+\vfill
+\begin{center}
+	\LARGE{\bfseries Supplementary Material}
+\end{center}
+\vfill
+~
+\clearpage
+\normalsize
+\appendix
 
 \end{document}
 
